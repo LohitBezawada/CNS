@@ -1,47 +1,36 @@
-#include <stdio.h>
-#include <string.h>
-#define SIZE 30
-void getKeyMatrix(char * key, int keyMatrix[3][3]) {
-  int k = 0;
-  for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < 3; j++) {
-      keyMatrix[i][j] = (key[k]) % 65;
-      k++;
-    }
-  }
-}
-void encrypt(int cipherMatrix[3][1], int keyMatrix[3][3], int messageVector[3][1]) {
-  int x, i, j;
-  for (i = 0; i < 3; i++) {
-    for (j = 0; j < 1; j++) {
-      cipherMatrix[i][j] = 0;
-      for (x = 0; x < 3; x++) {
-        cipherMatrix[i][j] += keyMatrix[i][x] * messageVector[x][j];
-      }
-      cipherMatrix[i][j] = cipherMatrix[i][j] % 26;
-    }
-  }
-}
-void HillCipher(char * message, char * key) {
-  int keyMatrix[3][3];
-  getKeyMatrix(key, keyMatrix);
-  int messageVector[3][1];
-  for (int i = 0; i < 3; i++)
-    messageVector[i][0] = (message[i]) % 65;
-  int cipherMatrix[3][1];
-  encrypt(cipherMatrix, keyMatrix, messageVector);
-  printf("Ciphertext: ");
-  for (int i = 0; i < 3; i++)
-    printf("%c", cipherMatrix[i][0] + 65);
-  printf("\n");
-}
+#include<stdio.h>
+
 int main() {
-  char message[SIZE], key[SIZE];
-  printf("Enter the plain text: ");
-  fgets(message, SIZE, stdin);
-  message[strcspn(message, "\n")] = '\0';
-  printf("Enter the key value: ");
-  fgets(key, SIZE, stdin);
-  key[strcspn(key, "\n")] = '\0';
-  HillCipher(message, key);
+    unsigned int a[3][3] = { { 6, 24, 1 }, { 13, 16, 10 }, { 20, 17, 15 } };
+    unsigned int b[3][3] = { { 8, 5, 10 }, { 21, 8, 21 }, { 21, 12, 8 } };
+    int i, j;
+    unsigned int c[3], d[3];
+    char msg[20];
+    int determinant = 0, t = 0;
+    printf("Enter 3 character plain text (in Upper case only): ");
+    scanf("%s", msg);
+    for (i = 0; i < 3; i++) {
+        c[i] = msg[i] - 'A';
+        printf("%d ", c[i]);
+    }
+    for (i = 0; i < 3; i++) {
+        t = 0;
+        for (j = 0; j < 3; j++) {
+            t += a[i][j] * c[j];
+        }
+        d[i] = t % 26;
+    }
+    printf("\nEncrypted Cipher Text: ");
+    for (i = 0; i < 3; i++)
+        printf("%c", d[i] + 'A');
+    for (i = 0; i < 3; i++) {
+        t = 0;
+        for (j = 0; j < 3; j++) {
+            t += b[i][j] * d[j];
+        }
+        c[i] = t % 26;
+    }
+    printf("\nDecrypted Cipher Text: ");
+    for (i = 0; i < 3; i++)
+        printf("%c", c[i] + 'A');
 }
