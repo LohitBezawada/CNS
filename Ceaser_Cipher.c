@@ -1,10 +1,12 @@
 #include<stdio.h>
 #include<string.h>
+#define SIZE 10
 int main() {
-  char plain[10], res[10];
+  char plain[SIZE], res[SIZE];
   int key, i, n;
   printf("Enter the plain text: ");
-  scanf("%s", plain);
+  fgets(plain, SIZE, stdin);
+  plain[strcspn(plain, "\n")] = '\0';
   printf("Enter the key value: ");
   scanf("%d", & key);
   n = strlen(plain);
