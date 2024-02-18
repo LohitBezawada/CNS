@@ -41,11 +41,13 @@ void decrypt(char map[MAX][MAX], char str[30], char key[20]) {
 int main() {
   char map[MAX][MAX];
   initializeMap(map);
-  char str[30], key[20];
+  char str[MAX], key[MAX];
   printf("Enter the plain text (in Upper case only): ");
-  scanf("%s", str);
+  fgets(str, MAX, stdin);
+  str[strcspn(str, "\n")] = '\0';
   printf("Enter the key value (in Upper case only): ");
-  scanf("%s", key);
+  fgets(key, MAX, stdin);
+  key[strcspn(key, "\n")] = '\0';
   encrypt(map, str, key);
   decrypt(map, str, key);
 }
