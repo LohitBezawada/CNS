@@ -21,11 +21,9 @@ void binaryValue(int n) {
   printf("%c", (char) decimal);
 }
 int main() {
-  char str[100];
   int i;
-  printf("Enter a String for Xor operation\n");
-  scanf("%s", str);
-  printf("After xor operation\n");
+  char str[]="Hello World";
+  printf("After XOR operation:\n");
   for (i = 0; i < strlen(str); i++) {
     binaryValue((int) str[i]);
   }
