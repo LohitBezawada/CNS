@@ -60,14 +60,19 @@ int main() {
   int ep[8] = {4,1,2,3,2,3,4,1};
   int p4[4] = {2,4,3,1};
   int ipinverse[8] = {4,1,3,5,7,2,8,6};
-  int key[11] = {1,0,1,0,0,0,0,0,1,0};
-  int plain[8] = {0,1,1,1,0,0,1,0};
+  int key[11];
+  // {1,0,1,0,0,0,0,0,1,0} 1 0 1 0 0 0 0 0 1 0
+  int plain[8];
+  //{0,1,1,1,0,0,1,0} 0 1 1 1 0 0 1 0
   printf("S-DES Key Generation and Encryption.\n");
-  printf("\n----------KEY GENERATION----------\n");
-  printf("\nEntered the 10-bit key is: ");
+  printf("\n----------------------------------\n");
+  printf("\n          KEY GENERATION          \n");
+  printf("\n----------------------------------\n");
+
+  printf("\nEnter the 10-bit key: ");
   for (i = 0; i < 10; i++)
-    printf("%d ", key[i]);
-  printf("\np10 permutation is defined as: ");
+    scanf("%d", & key[i]);
+  printf("P10 Permutation is defined as: ");
   for (i = 0; i <= 9; i++)
     printf("%d ", p10[i]);
   for (i = 0; i <= 9; i++) {
@@ -75,7 +80,7 @@ int main() {
     afterp10[i] = key[index - 1];
   }
   afterp10[i] = '\0';
-  printf("\n\nAfter p10 = ");
+  printf("\nAfter P10 = ");
   for (i = 0; i <= 9; i++)
     printf("%d ", afterp10[i]);
   for (i = 0; i < 5; i++) {
@@ -90,10 +95,10 @@ int main() {
     else
       ls1[i] = afterp10[i + 1];
   }
-  printf("\n\nAfter LS-1 = ");
+  printf("\nAfter LS-1 = ");
   for (i = 0; i < 10; i++)
     printf("%d ", ls1[i]);
-  printf("\np8 permutation is defined as: ");
+  printf("\nP8 Permutation is defined as: ");
   for (i = 0; i < 8; i++)
     printf("%d ", p8[i]);
   index = 0;
@@ -101,7 +106,7 @@ int main() {
     index = p8[i];
     k1[i] = ls1[index - 1];
   }
-  printf("\n\n --->Key-1 is: ");
+  printf("\nKey-1 is: ");
   for (i = 0; i < 8; i++)
     printf("%d ", k1[i]);
   for (i = 0; i < 3; i++) {
@@ -114,10 +119,10 @@ int main() {
   }
   ls2[8] = ls1[5];
   ls2[9] = ls1[6];
-  printf("\n\nAfter LS-2 = ");
+  printf("\nAfter LS-2 = ");
   for (i = 0; i < 10; i++)
     printf("%d ", ls2[i]);
-  printf("\np8 permutation is defined as: ");
+  printf("\nP8 Permutation is defined as: ");
   for (i = 0; i < 8; i++)
     printf("%d ", p8[i]);
   index = 0;
@@ -125,14 +130,16 @@ int main() {
     index = p8[i];
     k2[i] = ls2[index - 1];
   }
-  printf("\n\n --->Key-2 is: ");
+  printf("\nKey-2 is: ");
   for (i = 0; i < 8; i++)
     printf("%d ", k2[i]);
-  printf("\n\n----------S-DES ENCRYPTION--------- \n");
-  printf("\n --->Entered the 8-bit plaintext is: ");
+  printf("\n\n----------------------------------- \n");
+  printf("\n          S-DES ENCRYPTION          \n");
+  printf("\n----------------------------------- \n");
+  printf("\nEnter the 8-bit plaintext: ");
   for (i = 0; i < 8; i++)
-    printf("%d ", plain[i]);
-  printf("\nInitial permutation is defined as: ");
+    scanf("%d", & plain[i]);
+  printf("Initial Permutation is defined as: ");
   for (i = 0; i < 8; i++)
     printf("%d ", ip[i]);
   for (i = 0; i < 8; i++) {
@@ -140,10 +147,10 @@ int main() {
     afterip[i] = plain[index - 1];
   }
   afterip[i] = '\0';
-  printf("\nAfter ip = ");
+  printf("\nAfter IP = ");
   for (i = 0; i < 8; i++)
     printf("%d ", afterip[i]);
-  printf("\n\nExpand permutation is defined as: ");
+  printf("\nExpand Permutation is defined as: ");
   for (i = 0; i < 8; i++)
     printf("%d ", ep[i]);
   for (j = 0; j < 4; j++)
@@ -159,12 +166,12 @@ int main() {
     afterep[i] = rightafterip[index - 1];
   }
   afterep[i] = '\0';
-  printf("\nAfter ep = ");
+  printf("\nAfter EP = ");
   for (i = 0; i < 8; i++)
     printf("%d ", afterep[i]);
   for (i = 0; i < 8; i++)
     k1[i] = k1[i] ^ afterep[i];
-  printf("\n\nAfter XOR operation with 1st Key= ");
+  printf("\nAfter XOR operation with 1st Key= ");
   for (i = 0; i < 8; i++)
     printf("%d ", k1[i]);
   row = to_digit(k1[0], k1[3]);
@@ -183,10 +190,10 @@ int main() {
     aftersboxesone[j] = s0_binary[j];
   for (i = 0, j = 2; i < 2, j < 4; i++, j++)
     aftersboxesone[j] = s1_binary[i];
-  printf("\n\nAfter first S-Boxes= ");
+  printf("\nAfter first S-Boxes= ");
   for (i = 0; i < 4; i++)
     printf("%d ", aftersboxesone[i]);
-  printf("\n\nP4 is defined as: ");
+  printf("\nP4 is defined as: ");
   for (i = 0; i < 4; i++)
     printf("%d ", p4[i]);
   for (i = 0; i < 4; i++) {
@@ -199,7 +206,7 @@ int main() {
     printf("%d ", afterp4[i]);
   for (i = 0; i < 4; i++)
     afterp4[i] = afterp4[i] ^ leftafterip[i];
-  printf("\n\nAfter XOR operation with left nibble of after ip= ");
+  printf("\nAfter XOR operation with left nibble of after IP= ");
   for (i = 0; i < 4; i++)
     printf("%d ", afterp4[i]);
   for (i = 0; i < 4; i++)
@@ -214,7 +221,7 @@ int main() {
     leftafterone[j] = afterone[j];
   for (j = 0; j < 4; j++)
     rightafterone[j] = afterone[j + 4];
-  printf("\n\nExpand permutation is defined as: ");
+  printf("\nExpand Permutation is defined as: ");
   for (i = 0; i < 8; i++)
     printf("%d ", ep[i]);
   for (i = 0; i < 4; i++) {
@@ -226,12 +233,12 @@ int main() {
     afterep[i] = rightafterone[index - 1];
   }
   afterep[i] = '\0';
-  printf("\nAfter second ep = ");
+  printf("\nAfter second EP = ");
   for (i = 0; i < 8; i++)
     printf("%d ", afterep[i]);
   for (i = 0; i < 8; i++)
     k2[i] = k2[i] ^ afterep[i];
-  printf("\n\nAfter XOR operation with 2nd Key= ");
+  printf("\nAfter XOR operation with 2nd Key= ");
   for (i = 0; i < 8; i++)
     printf("%d ", k2[i]);
   row = to_digit(k2[0], k2[3]);
@@ -250,10 +257,10 @@ int main() {
     aftersboxestwo[j] = s0_binary[j];
   for (i = 0, j = 2; i < 2, j < 4; i++, j++)
     aftersboxestwo[j] = s1_binary[i];
-  printf("\n\nAfter second S-Boxes= ");
+  printf("\nAfter second S-Boxes= ");
   for (i = 0; i < 4; i++)
     printf("%d ", aftersboxestwo[i]);
-  printf("\n\nP4 is defined as: ");
+  printf("\nP4 is defined as: ");
   for (i = 0; i < 4; i++)
     printf("%d ", p4[i]);
   for (i = 0; i < 4; i++) {
@@ -266,7 +273,7 @@ int main() {
     printf("%d ", afterp4[i]);
   for (i = 0; i < 4; i++)
     afterp4[i] = afterp4[i] ^ leftafterone[i];
-  printf("\n\nAfter XOR operation with left nibble of after first part= ");
+  printf("\nAfter XOR operation with left nibble of after first part= ");
   for (i = 0; i < 4; i++)
     printf("%d ", afterp4[i]);
   for (i = 0; i < 4; i++)
@@ -274,10 +281,10 @@ int main() {
   for (i = 0, j = 4; i < 4, j < 8; i++, j++)
     aftertwo[j] = rightafterone[i];
   aftertwo[j] = '\0';
-  printf("\n\nAfter second part= ");
+  printf("\nAfter second part= ");
   for (i = 0; i < 8; i++)
     printf("%d ", aftertwo[i]);
-  printf("\n\nInverse Initial permutation is defined as: ");
+  printf("\nInverse Initial Permutation is defined as: ");
   for (i = 0; i < 8; i++)
     printf("%d ", ipinverse[i]);
   for (i = 0; i < 8; i++) {
@@ -285,7 +292,9 @@ int main() {
     afteripinverse[i] = aftertwo[index - 1];
   }
   afteripinverse[j] = '\0';
-  printf("\n\n--->8-bit Ciphertext will be= ");
+  printf("\n\n----------------------------------------------------------------------\n");
+  printf("\n             8-bit Ciphertext will be: ");
   for (i = 0; i < 8; i++)
     printf("%d ", afteripinverse[i]);
+  printf("\n\n----------------------------------------------------------------------\n");
 }
