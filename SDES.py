@@ -28,13 +28,11 @@ def function(expansion, s0, s1, key, message):
     temp = xor(temp, key)
     l = apply_sbox(s0, temp[:4])
     r = apply_sbox(s1, temp[4:])
-    l = "0" * (2 - len(l)) + l
-    r = "0" * (2 - len(r)) + r
     temp = apply_table(l + r, p4_table)
     temp = xor(left, temp)
     return temp + right
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     key = input("Enter 10 bit key: ") #1010000010
     message = input("Enter 8 bit message: ") #01110010
 
