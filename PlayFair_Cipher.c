@@ -136,3 +136,8 @@ int main() {
   key[strcspn(key, "\n")] = '\0';
   encryptDecryptByPlayfairCipher(str, key);
 }
+
+#Enter the plain text: instruments
+Enter the key value: monarchy 
+Encrypted text: gatlmzclrqtx
+Decrypted text: instrumentsz
